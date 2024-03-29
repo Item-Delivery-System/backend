@@ -6,16 +6,11 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 user_model = settings.AUTH_USER_MODEL
 
-# Create your models here.
 
 class User(AbstractUser):
     first_name = models.CharField(max_length=150, blank=False)
     last_name = models.CharField(max_length=150, blank=False)
     email = models.EmailField(blank=False, unique=True)
-
-
-
-
 
 class Profile(models.Model):
     user = models.OneToOneField(user_model,on_delete=models.CASCADE)
@@ -31,5 +26,11 @@ class serviceProviders(models.Model):
     id_back = models.ImageField(upload_to='user/id')
     license_front = models.ImageField(upload_to='user/id')
     license_back = models.ImageField(upload_to='user/id')
+    is_verified = models.BooleanField(default=False)
+
+    bank_account1 = models.CharField(max_length=255)
+    bank_account2 = models.CharField(max_length=255)
+
+    
     def __str__(self) -> str:
         return f"Service Provider: {self.profile.user.username}"
